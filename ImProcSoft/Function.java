@@ -1,189 +1,335 @@
-import java.lang.Math;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.TextComponent;
 import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.util.*;
+import java.lang.Object.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
+public class FileChoice extends Frame implements ActionListener
+{ 
+   private Button btnClick1;
+   private Button btnClick2;
+   private Button btnClick3;
+   private Button btnClick4;
+   private Button btnClick5;
+   private Button btnClick6;
+   private Button btnClick7;
+   private Button btnClick8;
+   private Button btnClick9;
+   private Button btnClick10;
 
 
-public class Function
-{double input;
- double output;
- int output1;
- double[] vect1;
- double[] vect2;
- double[][] matrix;
 
-  static final double pi = java.lang.Math.PI;
-  static final double e = java.lang.Math.E;
+
+  //private GainSlider gS;  
+  
+   static TextField entry1;
+   static TextField entry2;
+   private  Label prompt1;
+   private Label prompt2;
+   static String temp1;
+   static String temp2;
+   private FlowLayout layout;
+   int number;
+   private StringBuffer s1 = new StringBuffer("");
+   private StringBuffer s2 = new StringBuffer("");
+   private String str1= "";
+   private String str2= "";
+   public OurFilter oF;
+
+
+
+   public FileChoice()
+   {super ("File and Filter Choice");
+      setBackground(Color.pink);
+      layout = new FlowLayout(FlowLayout.CENTER,90,30);
+      setLayout(layout);
+      setSize(500,600); 
+   
+      entry1=new TextField(30);
+      add(entry1);
+      prompt1 = new Label("  Enter location of GIF/JPG File  ");
+      add(prompt1);
+   
+      entry2= new TextField(30);
+      add(entry2);
+      prompt2=new Label("   Enter the filter type you want or select from buttons below   ");
+      add(prompt2);
+   
+   
+   
+      btnClick1 = new Button("     Display Image and Filtered Image    ");
+      add(btnClick1);
+      btnClick1.addActionListener(this);
+      show(); 
+   
+      btnClick2 = new Button("AV_2x2");
+      add(btnClick2);
+      btnClick2.addActionListener(this);
+      show();
+   
+      btnClick3 = new Button("V_EDGE_2x2");
+      add(btnClick3);
+      btnClick3.addActionListener(this);
+      show();
+   
+      btnClick4 = new Button("LR_DIAG_2x2");
+      add(btnClick4);
+      btnClick4.addActionListener(this);
+      show();
+   
+      btnClick5 = new Button("toBW");
+      add(btnClick5);
+      btnClick5.addActionListener(this);
+      show();
+   
+      btnClick6 = new Button("Random");
+      add(btnClick6);
+      btnClick6.addActionListener(this);
+      show();
+   
+      btnClick7 = new Button("Sharp");
+      add(btnClick7);
+      btnClick7.addActionListener(this);
+      show();
+   
+      btnClick8 = new Button("Add 50");
+      add(btnClick8);
+      btnClick8.addActionListener(this);
+      show();
+      
+      btnClick9 = new Button("Poster");
+      add(btnClick9);
+      btnClick9.addActionListener(this);
+      show();
+      
+      btnClick10 = new Button("SquareRoot");
+      add(btnClick10);
+      btnClick10.addActionListener(this);
+   
+   
+   }
  
-  //pi = java.lang.MAth.PI;
-  //e  = java.lang.Math.E;
 
-Function(){;}
-
-
-public double[][] MatMult256(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[256][256];	
-
-
-for(int i =0;i<256;i++)
-{	
-	for(int j=0;j<256;j++)
-	{	double sum=0;
-		for(int k=0;k<256;k++){
-		sum+=mat1[i][k]*mat2[k][j];
-		}
-	matrix[i][j]=sum;
-	}
-
-}
-return matrix;
-} 
-
-public double[][] MatMult16(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[16][16];	
-
-
-for(int i =0;i<16;i++)
-{	
-	for(int j=0;j<16;j++)
-	{	double sum=0;
-		for(int k=0;k<16;k++){
-		sum=sum + mat1[i][k]*mat2[k][j];
-		}
-	matrix[i][j]=sum;
-	}
-
-}
-return matrix;
-} 
-
-public double[][] MatMult8(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[8][8];	
-
-
-for(int i =0;i<8;i++)
-{	
-	for(int j=0;j<8;j++)
-	{	double sum=0;
-		for(int k=0;k<8;k++){
-		sum=sum + mat1[i][k]*mat2[k][j];
-		}
-	matrix[i][j]=sum;
-	}
-
-}
-return matrix;
-} 
-
-
-
-
-public double[][] TileMatMult16(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[16][16];	
-
-
-for(int i =0;i<16;i++)
-{	
-	for(int j=0;j<16;j++)
-	{	int sum=0;
-		for(int k=0;k<16;k++){
-		sum+=mat1[i][k]*mat2[k][j];
-		}
-	matrix[i][j]=sum;
-	}
-
-}
-return matrix;
-} 
-
-
-public double Dot(double[] vect1, double[] vect2)
-{output= vect1[0]*vect2[0]+vect1[1]*vect2[1]+vect1[2]*vect2[2];
-return output;
-}
-
-
-
-public double Cos(double input)
-{output = java.lang.Math.cos(input); 
- return output;
-} 
-
-public double Sin(double input)
-{output = java.lang.Math.sin(input);
- return output;
-}  
-
-public double Tan(double input)
-{output = java.lang.Math.tan(input);
- return output;
-} 
-
-public double Rec(double input)
-{if(input!=0){output = 1/input;}
- else {System.out.println("Divide by zero problem with Reciprocal");
-  output= input; }
-return output; 
-} 
-
-public double Exp(double input)
-{output = java.lang.Math.exp(input);
- return output;
-}
-
-public double ISin(double input)
-{output = java.lang.Math.asin(input);
- return output;
-} 
-
-public double ICos(double input)
-{output = java.lang.Math.acos(input);
- return output;
-} 
-
-public double ITan(double input)
-{output = java.lang.Math.atan(input);
- return output;
-} 
-
-public double Sqrt(double input)
-{output = java.lang.Math.sqrt(input);
- return output;
-} 
-
-public double Floor(double input)
-{output = java.lang.Math.floor(input);
- return output;
-} 
-
-public double Abs(double input)
-{if(input<0){output=-input;}
- else{output=input;}
-return output;
-}
-
-public int Round(double input)
-{output1=(int)java.lang.Math.round(input);
-return output1;
-}
  
-public static void main(String [] args) throws java.io.IOException
-{Function f = new Function();
- //double input = .7854;
-InputStreamReader isr = new InputStreamReader(System.in) ;
-BufferedReader br = new BufferedReader(isr) ;
-System.out.println("Please enter the angle theta in radians") ;
-double inp = Double.parseDouble(br.readLine()) ;
-System.out.println( "The Cos of " + inp + " rads is " + f.Cos(inp)  );
-System.out.println( "The Sin of " +inp  + " rads is "  + f.Sin(inp) );
-System.out.println( "The Tan of " +inp   +" rads is" + f.Tan(inp) );
-System.out.println( "The Reciprocal of " +inp   +"is" + f.Rec(inp) );
-System.out.println( "The Exponential of " +inp   +"is" + f.Exp(inp) );
-System.out.println( "The ArcSin of " +inp  + "is "  + f.ISin(inp) );
-System.out.println( "The ArcCos of " +inp  + "is "  + f.ICos(inp) );
-System.out.println( "The ArcTan of " +inp  + "is "  + f.ITan(inp) );
-System.out.println( "The value of pi is  " + f.pi  );
-System.out.println( "The value of e is " +f.e );
-System.out.println( "The Sqrt of " +inp  + "is "  + f.Sqrt(inp) );
-System.out.println( "The Floor of " +inp  + "is "  + f.Floor(inp) );
-}
+   public static void main(String[] args)
+   {FileChoice fc = new FileChoice();
+   
+      fc.addWindowListener( 
+         new WindowAdapter()
+         {
+            public void windowClosing(WindowEvent e)
+            {System.exit(0);
+            //fc.dispose();
+            }
+         });
+   
+   } //end main
 
-} //end Class F (for function) definition
+
+
+
+   public void actionPerformed(ActionEvent e)
+   {
+      if (e.getActionCommand().equals("     Display Image and Filtered Image    "))
+      {
+      
+         temp1=entry1.getText();//temp1=entry1.getText();
+         temp2=entry2.getText();
+         System.out.println(temp1);
+         s1.append(temp1);
+         s2.append(temp2);
+         System.out.println(s1);
+         str1=s1.toString();
+         str2=s2.toString();
+         str1.trim();
+         str2.trim();
+         System.out.println("The filtertype is ...."+str2);
+      //bP=new ButtonPanel(str1);
+      //DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+         s1.delete(0,60);
+         s2.delete(0,60);
+      }
+      
+      
+      else if (e.getActionCommand().equals("AV_2x2"))
+      {
+         temp1=entry1.getText();
+         temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="AV_2x2";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+      
+      
+         s1.delete(0,60);
+         s2.delete(0,60);
+      
+      }
+      
+      else if (e.getActionCommand().equals("Sharp"))
+      {
+         temp1=entry1.getText();
+         temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="Sharp";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+      
+      
+         s1.delete(0,60);
+         s2.delete(0,60);
+      
+      }
+      
+      
+      else if (e.getActionCommand().equals("toBW"))
+      {
+         temp1=entry1.getText();
+         temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="toBW";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+      
+      
+         s1.delete(0,60);
+         s2.delete(0,60);
+      
+      }
+      
+      
+      else if (e.getActionCommand().equals("V_EDGE_2x2"))
+      {temp1=entry1.getText();temp1=entry1.getText();
+      //temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+      
+      
+         str1=s1.toString();
+         str2="V_EDGE_2x2";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+         s1.delete(0,60);
+         s2.delete(0,60);
+      }
+      
+      else if (e.getActionCommand().equals("Random"))
+      {temp1=entry1.getText();temp1=entry1.getText();
+      //temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="Random";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+         s1.delete(0,60);
+         s2.delete(0,60);
+      }
+      
+      else if (e.getActionCommand().equals("GainSlider"))
+      {temp1=entry1.getText();temp1=entry1.getText();
+      //temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="GainSlider";
+      
+         System.out.println("The filtertype is ...."+str2);
+      //DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+      // gS=new GainSlider(str1);
+         s1.delete(0,60);
+         s2.delete(0,60);
+      }
+      
+      else if (e.getActionCommand().equals("Add 50")){
+       temp1=entry1.getText();
+         temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="Add 50";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+      
+      
+         s1.delete(0,60);
+         s2.delete(0,60);
+
+      
+      }
+      
+      else if (e.getActionCommand().equals("Poster")){
+       temp1=entry1.getText();
+         temp2=entry2.getText();
+      
+         s1.append(temp1);
+         s2.append(temp2);
+      
+         str1=s1.toString();
+         str2="Poster";
+      
+         System.out.println("The filtertype is ...."+str2);
+         DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+      
+      
+         s1.delete(0,60);
+         s2.delete(0,60);
+      }
+      
+      else if (e.getActionCommand().equals("SquareRoot")){
+          temp1=entry1.getText();
+            temp2=entry2.getText();
+         
+            s1.append(temp1);
+            s2.append(temp2);
+         
+            str1=s1.toString();
+            str2="Poster";
+         
+            System.out.println("The filtertype is ...."+str2);
+            DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+         
+         
+            s1.delete(0,60);
+            s2.delete(0,60);
+         }
+   
+   }
+}
