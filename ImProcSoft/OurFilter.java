@@ -9,7 +9,8 @@ import java.lang.Math;
 public class OurFilter 
 { static final int[] AV_2x2 = {1,1,1,1,4};
    static final int[] V_EDGE_2x2={1,-1,1,-1,1}; 
-   static final int[][] SHARP ={{0,-1,0},{-1,5,-1},{0,-1,0}};  
+   static final int[][] SHARP ={{0,-1,0},{-1,5,-1},{0,-1,0}};
+
   
    public String s;
  // We will add some other filter masks as we proceed
@@ -258,7 +259,6 @@ public class OurFilter
       {
          ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
          ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
-      
          ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
       
       //**************
@@ -300,7 +300,31 @@ public class OurFilter
 
 
 
+   SplitImage SquareRoot(SplitImage sIm){
+	    int height,width;
+	      height=sIm.height;
+	      width=sIm.width;
+	      int j=0;
+	      int size;//overall size in pixels of image
+	      size=height*width;
+	   
+	      SplitImage ssIm = new SplitImage(height,width); // blank canvas
+	      System.out.println("We are in the SquareRoot method just written");
+	      for(j=0;j<size;j++)
+	      {
+	         ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) ^ 16;
+	         ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) ^ 16;
+	         ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) ^ 16;
+	      
+	      //**************
+	      //median3x3array();
+	      //***************
+	      
 
+	      }// end for j
+	            return sssIm;
+
+	   }
 
 
 
