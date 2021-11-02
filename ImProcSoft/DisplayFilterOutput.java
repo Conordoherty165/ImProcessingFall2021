@@ -101,6 +101,11 @@ ssIm=sssIm;
   System.out.println("Just called Poster");
  }
  
+ else if (filtertype.compareTo("SquareRoot")==0)
+ {
+  ssIm = oF.SquareRoot(sIm);
+  System.out.println("Just called SquareRoot");
+ }
  
  /*
  else if (filtertype.compareTo("MAGNIFY50")==0)
