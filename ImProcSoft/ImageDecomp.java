@@ -1,19 +1,20 @@
-import java.awt.*;
-import java.awt.image.*;
-import javax.swing.*;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
+import java.awt.image.PixelGrabber;
 
 
-// The main output of this class is the output of 
+// The main output of this class is the output of
 // prism(String filename) - namely an object of the class type
-// SplitImage which will in due course be natural input to the 
+// SplitImage which will in due course be natural input to the
 // IntDisplayCanvas class which will wrap the red/green/blue
 // components of the SplitImage into a form that will allow
-// display of the various components in JPanels as JLabels using 
-// the DisplayArray class  
+// display of the various components in JPanels as JLabels using
+// the DisplayArray class
 
 public class ImageDecomp
 {	ImageDecomp()
-	{;
+	{
 	}//Constructor for Image Decomp class
 IObserver observer;
 Image img;
@@ -30,10 +31,10 @@ public static int[] getPixels(String infile,int width,int height)
 int[] rawPixels;
  PixelGrabber pg;
  int area=width*height;
- rawPixels = new int[area]; 
- 
+ rawPixels = new int[area];
+
  pg = new PixelGrabber(img,0,0,width,height,rawPixels,0,width);
- 
+
  try
  {pg.grabPixels();
  }
@@ -62,15 +63,15 @@ int height;
 	width=pg.getWidth();
 	height=pg.getHeight();
  	dims[0]=width;dims[1]=height;
-	
-	
+
+
  	return dims;
  	}
- 	else 
+ 	else
  	{dims[0]=1;dims[1]=1;
  	return dims;
  	}
- } 
+ }
  catch(InterruptedException e)
  {dims[0]=1;dims[1]=1;
  	return dims;
@@ -84,11 +85,11 @@ public static SplitImage prism(String filename)
  String name;
  int width;
  int height;
- 
+
  name = filename;
- 
+
  SplitImage sI = new SplitImage();
- 
+
  String s =  name;
  int[] dims = new int[2];
  int area ;
@@ -97,15 +98,15 @@ public static SplitImage prism(String filename)
  red= new int[area];
  green = new int[area];
  blue = new int[area];
- 
+
   sI.red = red;
  sI.green = green;
  sI.blue =  blue;
- 
- 
+
+
  int [] data = new int[area];
  data  = getPixels(s,dims[0],dims[1]);
- 
+
  for(int i = 0; i < area; i++)
  { sI.red[i] = ((data[i]>>>16 & 0xff));
    sI.green[i] =((data[i]>>>8 & 0x0000ff));
@@ -116,7 +117,7 @@ sI.width = dims[0];
 sI.height=dims[1];
 sI.filename=name;
 
-return sI; 
+return sI;
 }
 
 
@@ -125,7 +126,8 @@ return sI;
 
 
 class IObserver implements ImageObserver
-{public boolean imageUpdate(Image img,int infoflags,int x,int y, int width,int height )
+{@Override
+public boolean imageUpdate(Image img,int infoflags,int x,int y, int width,int height )
 {return true;
 }
 }//End of IObserver class - implementing ImageObserver

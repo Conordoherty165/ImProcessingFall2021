@@ -1,15 +1,15 @@
-public class SplitImage 
+public class SplitImage
 {
 
-int[] red; 
+int[] red;
 int[] green;
 int[] blue;
 String filename;
 int width;
-int height;	
+int height;
 
 
-SplitImage(){;}//End default constructor
+SplitImage(){}//End default constructor
 
 SplitImage(int h,int w)
 {int i;
@@ -20,7 +20,7 @@ SplitImage(int h,int w)
 	for(i=0;i<h*w;i++)
 	{redd[i]=255;greenn[i]=255;bluee[i]=255;
 	}// end for loop on i
-		
+
 	 width=w;
 	 height=h;
 	 red=redd;green=greenn;blue=bluee;
@@ -41,7 +41,7 @@ for(i=0;i<h;i++)
 {		for(j=0;j<w;j++)
 		{ddsIm.red[i][j]=this.red[i*w+j]; ddsIm.green[i][j]=this.green[i*w+j];ddsIm.blue[i][j]=this.blue[i*w+j];
 		}// end for j
-}//end for i 
+}//end for i
 return ddsIm;
 }// end method from1To2D
 

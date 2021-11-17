@@ -1,22 +1,16 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.TextComponent;
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import java.util.*;
-import java.lang.Object.*;
-
-import java.io.File;
-import java.io.IOException;
+import java.awt.Button;
 import java.awt.Color;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class FileChoice extends Frame implements ActionListener
-{ 
+{
    private Button btnClick1;
    private Button btnClick2;
    private Button btnClick3;
@@ -31,7 +25,7 @@ public class FileChoice extends Frame implements ActionListener
 
 
 
-  //private GainSlider gS;  
+  //private GainSlider gS;
 
    static TextField entry1;
    static TextField entry2;
@@ -54,7 +48,7 @@ public class FileChoice extends Frame implements ActionListener
       setBackground(Color.pink);
       layout = new FlowLayout(FlowLayout.CENTER,90,30);
       setLayout(layout);
-      setSize(500,600); 
+      setSize(500,600);
 
       entry1=new TextField(30);
       add(entry1);
@@ -71,57 +65,58 @@ public class FileChoice extends Frame implements ActionListener
       btnClick1 = new Button("     Display Image and Filtered Image    ");
       add(btnClick1);
       btnClick1.addActionListener(this);
-      show(); 
+      
 
       btnClick2 = new Button("AV_2x2");
       add(btnClick2);
       btnClick2.addActionListener(this);
-      show();
+      
 
       btnClick3 = new Button("V_EDGE_2x2");
       add(btnClick3);
       btnClick3.addActionListener(this);
-      show();
+      
 
       btnClick4 = new Button("LR_DIAG_2x2");
       add(btnClick4);
       btnClick4.addActionListener(this);
-      show();
+      
 
       btnClick5 = new Button("toBW");
       add(btnClick5);
       btnClick5.addActionListener(this);
-      show();
+      
 
       btnClick6 = new Button("Random");
       add(btnClick6);
       btnClick6.addActionListener(this);
-      show();
+      
 
       btnClick7 = new Button("Sharp");
       add(btnClick7);
       btnClick7.addActionListener(this);
-      show();
+      
 
       btnClick8 = new Button("Add 50");
       add(btnClick8);
       btnClick8.addActionListener(this);
-      show();
+      
 
       btnClick9 = new Button("Poster");
       add(btnClick9);
       btnClick9.addActionListener(this);
-      show();
+      
 
       btnClick10 = new Button("SquareRoot");
       add(btnClick10);
       btnClick10.addActionListener(this);
       
+      
       btnClick11 = new Button("Blend");
       add(btnClick11);
       btnClick11.addActionListener(this);
-      
-      
+      show();
+
 
 
    }
@@ -131,10 +126,11 @@ public class FileChoice extends Frame implements ActionListener
    public static void main(String[] args)
    {FileChoice fc = new FileChoice();
 
-      fc.addWindowListener( 
+      fc.addWindowListener(
          new WindowAdapter()
          {
-            public void windowClosing(WindowEvent e)
+            @Override
+			public void windowClosing(WindowEvent e)
             {System.exit(0);
             //fc.dispose();
             }
@@ -145,7 +141,8 @@ public class FileChoice extends Frame implements ActionListener
 
 
 
-   public void actionPerformed(ActionEvent e)
+   @Override
+public void actionPerformed(ActionEvent e)
    {
       if (e.getActionCommand().equals("     Display Image and Filtered Image    "))
       {
@@ -336,7 +333,7 @@ public class FileChoice extends Frame implements ActionListener
             s1.delete(0,60);
             s2.delete(0,60);
          }
-      
+
       else if (e.getActionCommand().equals("Blend")){
           temp1=entry1.getText();
             temp2=entry2.getText();

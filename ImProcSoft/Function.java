@@ -1,5 +1,5 @@
-import java.lang.Math;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 public class Function
@@ -16,15 +16,15 @@ public class Function
   //pi = java.lang.MAth.PI;
   //e  = java.lang.Math.E;
 
-Function(){;}
+Function(){}
 
 
 public double[][] MatMult256(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[256][256];	
+{double[][] matrix=new double[256][256];
 
 
 for(int i =0;i<256;i++)
-{	
+{
 	for(int j=0;j<256;j++)
 	{	double sum=0;
 		for(int k=0;k<256;k++){
@@ -35,14 +35,14 @@ for(int i =0;i<256;i++)
 
 }
 return matrix;
-} 
+}
 
 public double[][] MatMult16(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[16][16];	
+{double[][] matrix=new double[16][16];
 
 
 for(int i =0;i<16;i++)
-{	
+{
 	for(int j=0;j<16;j++)
 	{	double sum=0;
 		for(int k=0;k<16;k++){
@@ -53,14 +53,14 @@ for(int i =0;i<16;i++)
 
 }
 return matrix;
-} 
+}
 
 public double[][] MatMult8(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[8][8];	
+{double[][] matrix=new double[8][8];
 
 
 for(int i =0;i<8;i++)
-{	
+{
 	for(int j=0;j<8;j++)
 	{	double sum=0;
 		for(int k=0;k<8;k++){
@@ -71,17 +71,17 @@ for(int i =0;i<8;i++)
 
 }
 return matrix;
-} 
+}
 
 
 
 
 public double[][] TileMatMult16(double[][] mat1,double[][] mat2)
-{double[][] matrix=new double[16][16];	
+{double[][] matrix=new double[16][16];
 
 
 for(int i =0;i<16;i++)
-{	
+{
 	for(int j=0;j<16;j++)
 	{	int sum=0;
 		for(int k=0;k<16;k++){
@@ -92,7 +92,7 @@ for(int i =0;i<16;i++)
 
 }
 return matrix;
-} 
+}
 
 
 public double Dot(double[] vect1, double[] vect2)
@@ -103,26 +103,26 @@ return output;
 
 
 public double Cos(double input)
-{output = java.lang.Math.cos(input); 
+{output = java.lang.Math.cos(input);
  return output;
-} 
+}
 
 public double Sin(double input)
 {output = java.lang.Math.sin(input);
  return output;
-}  
+}
 
 public double Tan(double input)
 {output = java.lang.Math.tan(input);
  return output;
-} 
+}
 
 public double Rec(double input)
 {if(input!=0){output = 1/input;}
  else {System.out.println("Divide by zero problem with Reciprocal");
   output= input; }
-return output; 
-} 
+return output;
+}
 
 public double Exp(double input)
 {output = java.lang.Math.exp(input);
@@ -132,27 +132,27 @@ public double Exp(double input)
 public double ISin(double input)
 {output = java.lang.Math.asin(input);
  return output;
-} 
+}
 
 public double ICos(double input)
 {output = java.lang.Math.acos(input);
  return output;
-} 
+}
 
 public double ITan(double input)
 {output = java.lang.Math.atan(input);
  return output;
-} 
+}
 
 public double Sqrt(double input)
 {output = java.lang.Math.sqrt(input);
  return output;
-} 
+}
 
 public double Floor(double input)
 {output = java.lang.Math.floor(input);
  return output;
-} 
+}
 
 public double Abs(double input)
 {if(input<0){output=-input;}
@@ -180,8 +180,8 @@ System.out.println( "The Exponential of " +inp   +"is" + f.Exp(inp) );
 System.out.println( "The ArcSin of " +inp  + "is "  + f.ISin(inp) );
 System.out.println( "The ArcCos of " +inp  + "is "  + f.ICos(inp) );
 System.out.println( "The ArcTan of " +inp  + "is "  + f.ITan(inp) );
-System.out.println( "The value of pi is  " + f.pi  );
-System.out.println( "The value of e is " +f.e );
+System.out.println( "The value of pi is  " + Function.pi  );
+System.out.println( "The value of e is " +Function.e );
 System.out.println( "The Sqrt of " +inp  + "is "  + f.Sqrt(inp) );
 System.out.println( "The Floor of " +inp  + "is "  + f.Floor(inp) );
 }

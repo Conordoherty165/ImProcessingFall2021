@@ -1,14 +1,15 @@
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import javax.swing.*;
-import java.lang.Object.*;
-import javax.imageio.ImageIO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException; 
 import java.io.FileOutputStream;
-import java.io.*; import javax.imageio.*; import java.awt.image.*; 
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 
 
@@ -16,7 +17,7 @@ import java.io.*; import javax.imageio.*; import java.awt.image.*;
 public class DisplayFilterOutput extends JFrame
 {JLabel jL;
  //OurFilter oF;
- 
+
  DisplayFilterOutput(String file,String filtertype)
  {
  super("The output of the " + filtertype + " filter");
@@ -25,20 +26,20 @@ public class DisplayFilterOutput extends JFrame
   File f = null;
 
  ImageDecomp iD = new ImageDecomp();
- SplitImage sIm =  iD.prism(s);
+ SplitImage sIm =  ImageDecomp.prism(s);
  SplitImage ssIm ;//= new SplitImage(sIm.height,sIm.width);
  SplitImage sssIm;
  filtertype.trim();
- 
+
  System.out.println("In display f out we have filtertype = "+filtertype);
- 
- 
+
+
  if (filtertype.compareTo("AV_2x2")==0)
- { ssIm = oF.passover(sIm,oF.AV_2x2);
+ { ssIm = oF.passover(sIm,OurFilter.AV_2x2);
    //System.out.println("**** in AV_2x2 - ssIm is set as oFpassover");
  }
- 
- 
+
+
  //else if (filtertype.compareTo("Sharp")==0)
  //{ ssIm = oF.passover(sIm,oF.SHARP);
    //System.out.println("**** in AV_2x2 - ssIm is set as oFpassover");
@@ -57,18 +58,18 @@ else if (filtertype.compareTo("Random")==0)
  }
 
  else if (filtertype.compareTo("V_EDGE_2x2")==0)
- {sssIm = oF.passover(sIm,oF.V_EDGE_2x2);
+ {sssIm = oF.passover(sIm,OurFilter.V_EDGE_2x2);
   ssIm=new SplitImage(sssIm.height,sssIm.width);// this is a blank image that will be "drawn onto"
-  
+
   for(int i=0;i<ssIm.width*ssIm.height;i++)
   {		if((sssIm.red[i]+sssIm.green[i] + sssIm.blue[i])< 20  && (sssIm.red[i]+sssIm.green[i] + sssIm.blue[i])>-20)
   			{ssIm.red[i]=0;ssIm.green[i]=0;ssIm.blue[i]=0;}
-			
+
 			else {ssIm.red[i]=255;ssIm.green[i]=255;ssIm.blue[i]=255;}  		}
  }
- 
- 
- 
+
+
+
  else if (filtertype.compareTo("Sharp")==0)
  {sssIm = oF.sharp(sIm);
   ssIm=new SplitImage(sssIm.height,sssIm.width);// this is a blank image that will be "drawn onto"
@@ -77,10 +78,10 @@ ssIm=sssIm;
 
 
 
- }//end Sharp (our filter method "sharp") 
- 
- 
- 
+ }//end Sharp (our filter method "sharp")
+
+
+
  else if (filtertype.compareTo("LR_DIAG_2x2")==0)
  { //ssIm = oF.passover(sIm,oF.LR_DIAG_2x2);
  	//	ssIm = new SplitImage(2*sIm.height,2*sIm.width);
@@ -94,23 +95,29 @@ ssIm=sssIm;
  ssIm =oF.reduce(sIm);
 
  }
- 
+
  else if (filtertype.compareTo("Poster")==0)
  {
   ssIm = oF.toBW(sIm);
   System.out.println("Just called Poster");
  }
- 
+
  else if (filtertype.compareTo("SquareRoot")==0)
  {
   ssIm = oF.SquareRoot(sIm);
   System.out.println("Just called SquareRoot");
  }
- 
+
+ else if (filtertype.compareTo("Blend")==0)
+ {
+  ssIm = oF.Blend(sIm);
+  System.out.println("Just called Blend");
+ }
+
  /*
  else if (filtertype.compareTo("MAGNIFY50")==0)
  { ssIm = oF.magnify(sIm,50);
-  
+
  }
  else if (filtertype.compareTo("MAGNIFY200")==0)
  { ssIm = oF.magnify(sIm,200);
@@ -147,10 +154,11 @@ else if (filtertype.compareTo("QuantDCT")==0)
 
  else
  { ssIm=sIm;
- }      
+ }
  //SplitImage sssIm = oF.passover(ssIm,oF.AV_2x2);
  //SplitImage ssIm = oF.magnify(sIm,150);
- 
+
+ //commented out four lines
  CombineImages cI=new CombineImages(sIm,ssIm);
  SplitImage combo = cI.getCombined();
  IntDisplayCanvas iDC = new IntDisplayCanvas(combo);
@@ -175,7 +183,7 @@ System.out.println();
 //JPEGImageEncoder jpeg=JPEGCodec.createJPEGEncoder(foS);
 }//end try
 catch(NullPointerException fose){System.out.println("Problem with file");}
-catch(IOException ioe){System.out.println("Problem with writing jpg to C:\\");} 
+catch(IOException ioe){System.out.println("Problem with writing jpg to C:\\");}
 //encode(bI);
 */
 
@@ -197,23 +205,24 @@ System.out.println("Written png file to C:\\Images\\");
 //JPEGImageEncoder jpeg=JPEGCodec.createJPEGEncoder(foS);
 }
 catch(NullPointerException fose){System.out.println("Problem with file");}
-catch(IOException ioe){System.out.println("Problem with writing jpg to C:\\");} 
+catch(IOException ioe){System.out.println("Problem with writing jpg to C:\\");}
 
  jL = new JLabel(new ImageIcon(bI));
 getContentPane().add(jL);
 this.pack();
 this.setVisible(true);
-addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e)
+addWindowListener(new WindowAdapter(){@Override
+public void windowClosing(WindowEvent e)
 {
-;
+
 System.gc();
 }});
  }
 
-/* 
+/*
 public static void main(String[] args)
 {DisplayFilterOutput dFO = new DisplayFilterOutput();
-}  
+}
 */
 
 

@@ -1,9 +1,5 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.image.BufferedImage.*;
-import java.io.*;
-import java.awt.Component.*;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 public class IntDisplayCanvas //implements ActionListener
 {
@@ -31,7 +27,7 @@ for(int s=0;s<width;s++)
 	}
 
 //System.out.println("Just filled image with data");
-//System.out.println("The value of the first = " + (image.getRGB(0,0)));	
+//System.out.println("The value of the first = " + (image.getRGB(0,0)));
 
 }
 
