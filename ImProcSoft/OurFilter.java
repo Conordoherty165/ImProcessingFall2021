@@ -366,6 +366,43 @@ SplitImage Blend(SplitImage sIm){
 }
 
 
+SplitImage Sepia(SplitImage sIm){
+	int height,width;
+	height=sIm.height;
+	width=sIm.width;
+	int j=0;
+	int size;//overall size in pixels of image
+	size=height*width;
+
+	SplitImage ssIm = new SplitImage(height,width); // blank canvas
+	System.out.println("We are in the Sepia method just written");
+	for(j=0;j<size;j++)
+	{
+   
+		// ssIm.red[j]+=(int) (sIm.red[j]*0.393)+(sIm.green[j]*0.769)+(sIm.blue[j]*0.189);
+// 		ssIm.green[j]+=(int) (sIm.red[j]*0.349)+(sIm.green[j]*0.686)+(sIm.blue[j]*0.168);
+// 		ssIm.blue[j]+=(int) (sIm.red[j]*0.272)+(sIm.green[j]*0.534)+(sIm.blue[j]*0.131);
+      //test for blue
+      ssIm.red[j]+=(int) (sIm.red[j]*0.393)+(sIm.green[j]*0.769)+(sIm.blue[j]*0.189);
+		ssIm.green[j]+=(int) (sIm.red[j]*0.349)+(sIm.green[j]*0.686)+(sIm.blue[j]*0.168);
+		ssIm.blue[j]+=(int) (sIm.red[j]*0.272)+(sIm.green[j]*0.534)+(sIm.blue[j]*0.131);
+     
+
+
+		//**************
+		//median3x3array();
+		//***************
+
+
+	}// end for j
+	return ssIm;
+
+}
+
+
+
+
+
 
 SplitImage reduce(SplitImage input)
 {int oldwidth=input.width;
@@ -441,6 +478,9 @@ for(i=1;i<h-1;i++)
 	dsssIm.green[i][j]= (5*dssIm.green[i][j]+dssIm.green[i][j+1] + dssIm.green[i+1][j] + dssIm.green[i+1][j+1])/8;
 	dsssIm.blue[i][j]= (5*dssIm.blue[i][j]+dssIm.blue[i][j+1] + dssIm.blue[i+1][j] + dssIm.blue[i+1][j+1])/8;      }
 }
+
+
+
 
 /*
 
