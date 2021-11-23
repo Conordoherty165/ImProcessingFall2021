@@ -113,6 +113,12 @@ ssIm=sssIm;
   ssIm = oF.Blend(sIm);
   System.out.println("Just called Blend");
  }
+ 
+ else if (filtertype.compareTo("Sepia")==0)
+ {
+  ssIm = oF.Sepia(sIm);
+  System.out.println("Just called Sepia");
+ }
 
  /*
  else if (filtertype.compareTo("MAGNIFY50")==0)
