@@ -52,6 +52,7 @@ public class FileChoice extends Frame implements ActionListener
       setSize(500,600);
 
       entry1=new TextField(30);
+      entry1.setText("C:\\Users\\jedib\\Desktop\\brink.PNG");
       add(entry1);
       prompt1 = new Label("  Enter location of GIF/JPG File  ");
       add(prompt1);

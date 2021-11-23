@@ -383,10 +383,21 @@ SplitImage Sepia(SplitImage sIm){
 // 		ssIm.green[j]+=(int) (sIm.red[j]*0.349)+(sIm.green[j]*0.686)+(sIm.blue[j]*0.168);
 // 		ssIm.blue[j]+=(int) (sIm.red[j]*0.272)+(sIm.green[j]*0.534)+(sIm.blue[j]*0.131);
       //test for blue
-      ssIm.red[j]+=(int) (sIm.red[j]*0.393)+(sIm.green[j]*0.769)+(sIm.blue[j]*0.189);
-		ssIm.green[j]+=(int) (sIm.red[j]*0.349)+(sIm.green[j]*0.686)+(sIm.blue[j]*0.168);
-		ssIm.blue[j]+=(int) (sIm.red[j]*0.272)+(sIm.green[j]*0.534)+(sIm.blue[j]*0.131);
-     
+        ssIm.red[j] = (int) ((sIm.red[j]*0.393)+(sIm.green[j]*0.769)+(sIm.blue[j]*0.189));
+		ssIm.green[j] = (int) ((sIm.red[j]*0.349)+(sIm.green[j]*0.686)+(sIm.blue[j]*0.168));
+		ssIm.blue[j] = (int) ((sIm.red[j]*0.272)+(sIm.green[j]*0.534)+(sIm.blue[j]*0.131));
+		
+		//if value is over 255 set to 255
+		if(ssIm.red[j] > 255) {
+			ssIm.red[j]=255;
+		}
+		if(ssIm.blue[j] > 255) {
+			ssIm.blue[j]=255;
+		}
+		if(ssIm.green[j] > 255) {
+			ssIm.green[j]=255;
+		}
+		
 
 
 		//**************
