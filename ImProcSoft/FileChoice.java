@@ -22,6 +22,7 @@ public class FileChoice extends Frame implements ActionListener
    private Button btnClick9;
    private Button btnClick10;
    private Button btnClick11;
+   private Button btnClick12;
 
 
 
@@ -115,6 +116,10 @@ public class FileChoice extends Frame implements ActionListener
       btnClick11 = new Button("Blend");
       add(btnClick11);
       btnClick11.addActionListener(this);
+      
+      btnClick12 = new Button("Sepia");
+      add(btnClick12);
+      btnClick12.addActionListener(this);
       show();
 
 
@@ -343,6 +348,25 @@ public void actionPerformed(ActionEvent e)
 
             str1=s1.toString();
             str2="Blend";
+
+            System.out.println("The filtertype is ...."+str2);
+            DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+
+
+            s1.delete(0,60);
+            s2.delete(0,60);
+
+
+         }
+      else if (e.getActionCommand().equals("Sepia")){
+          temp1=entry1.getText();
+            temp2=entry2.getText();
+
+            s1.append(temp1);
+            s2.append(temp2);
+
+            str1=s1.toString();
+            str2="Sepia";
 
             System.out.println("The filtertype is ...."+str2);
             DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
