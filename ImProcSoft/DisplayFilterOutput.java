@@ -119,6 +119,12 @@ ssIm=sssIm;
   ssIm = oF.Sepia(sIm);
   System.out.println("Just called Sepia");
  }
+ 
+ else if (filtertype.compareTo("Median Filtering")==0)
+ {
+  ssIm = oF.MedianFiltering(sIm);
+  System.out.println("Just called Median Filtering");
+ }
 
  /*
  else if (filtertype.compareTo("MAGNIFY50")==0)

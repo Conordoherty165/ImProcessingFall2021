@@ -1,4 +1,8 @@
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
 
 
 
@@ -412,6 +416,60 @@ SplitImage Sepia(SplitImage sIm){
 
 
 
+SplitImage MedianFiltering(SplitImage sIm){
+	int height,width;
+	height=sIm.height;
+	width=sIm.width;
+	int j=0;
+	int size;//overall size in pixels of image
+	size=height*width;
+	
+	TwoDSplitImage twoDIm = sIm.from1To2D(); //2D image
+	
+	SplitImage ssIm = new SplitImage(height,width); // blank canvas
+	System.out.println("We are in the MedianFiltering method just written");
+	for (int i = 1; i < height-1; i++) { //1 to skip edges
+		for (int k = 1; k < width-1; k++) { //1 to skip edges
+			int[] current=getPixelValue(twoDIm,i,k);
+			System.out.println();
+			//get all 8 neighbouring pixels
+			//3 values change median 
+			//once you have median set current pixel (twoDIm[i][k] set to median)
+			//finish loop and then convert back to a splitImage;
+			// and then return
+			int[] left=getPixelValue(twoDIm,i,k-1);
+			int[] topLeft=getPixelValue(twoDIm,i+1,k-1);
+			int[] topMiddle=getPixelValue(twoDIm,i+1,k);
+			int[] right=getPixelValue(twoDIm,i,k+1);
+			int[] bottomRight=getPixelValue(twoDIm, i-1, k+1);
+			
+		}
+	}
+		
+
+	return ssIm;
+
+}
+
+int[] getPixelValue(TwoDSplitImage image, int height,int width) {
+	int red=image.red[height][width];
+	int green=image.green[height][width];
+	int blue=image.blue[height][width];
+	
+	return new int[] {red,green,blue};
+	
+	
+}
+
+int Median (int[] numbers) {
+	Arrays.sort(numbers);
+	int median;
+	if (numbers.length % 2 == 0)
+		median = (numbers[numbers.length/2] + numbers[numbers.length/2 - 1])/2;
+	else
+		median =  numbers[numbers.length/2];
+	return median;
+}
 
 
 
