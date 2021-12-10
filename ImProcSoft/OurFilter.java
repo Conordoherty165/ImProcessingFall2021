@@ -431,7 +431,6 @@ SplitImage MedianFiltering(SplitImage sIm){
 	for (int i = 1; i < height-1; i++) { //1 to skip edges
 		for (int k = 1; k < width-1; k++) { //1 to skip edges
 			int[] current=getPixelValue(twoDIm,i,k);
-			System.out.println();
 			//get all 8 neighbouring pixels
 			//3 values change median 
 			//once you have median set current pixel (twoDIm[i][k] set to median)
@@ -442,6 +441,8 @@ SplitImage MedianFiltering(SplitImage sIm){
 			int[] topMiddle=getPixelValue(twoDIm,i+1,k);
 			int[] right=getPixelValue(twoDIm,i,k+1);
 			int[] bottomRight=getPixelValue(twoDIm, i-1, k+1);
+			int[] bottom=getPixelValue(twoDIm, i-1,k);
+			int[] bottomLeft=getPixelValue(twoDIm, i-1, k-1);
 			
 		}
 	}
@@ -450,6 +451,8 @@ SplitImage MedianFiltering(SplitImage sIm){
 	return ssIm;
 
 }
+
+
 
 int[] getPixelValue(TwoDSplitImage image, int height,int width) {
 	int red=image.red[height][width];
@@ -469,6 +472,34 @@ int Median (int[] numbers) {
 	else
 		median =  numbers[numbers.length/2];
 	return median;
+}
+
+
+SplitImage ImageNegative(SplitImage sIm){
+	int height,width;
+	height=sIm.height;
+	width=sIm.width;
+	int j=0;
+	int size;//overall size in pixels of image
+	size=height*width;
+
+	SplitImage ssIm = new SplitImage(height,width); // blank canvas
+	System.out.println("We are in the ImageNegative method just written");
+	for(j=0;j<size;j++)
+	{
+		ssIm.red[j]= 255 - sIm.red[j]; 
+		ssIm.green[j]= 255 - sIm.green[j];
+		ssIm.blue[j]= 255 - sIm.blue[j];
+		
+
+		//**************
+		//median3x3array();
+		//***************
+
+
+	}// end for j
+	return ssIm;
+
 }
 
 

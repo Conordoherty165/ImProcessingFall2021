@@ -125,6 +125,13 @@ ssIm=sssIm;
   ssIm = oF.MedianFiltering(sIm);
   System.out.println("Just called Median Filtering");
  }
+ 
+ else if (filtertype.equals("Image Negative"))
+ {
+  ssIm = oF.ImageNegative(sIm);
+  System.out.println("Just called ImageNegative");
+ }
+ 
 
  /*
  else if (filtertype.compareTo("MAGNIFY50")==0)

@@ -24,6 +24,7 @@ public class FileChoice extends Frame implements ActionListener
    private Button btnClick11;
    private Button btnClick12;
    private Button btnClick13;
+   private Button btnClick14;
 
 
 
@@ -127,6 +128,10 @@ public class FileChoice extends Frame implements ActionListener
       btnClick13 = new Button("Median Filtering");
       add(btnClick13);
       btnClick13.addActionListener(this);
+      
+      btnClick14 = new Button("Image Negative");
+      add(btnClick14);
+      btnClick14.addActionListener(this);
       show();
 
 
@@ -395,6 +400,26 @@ public void actionPerformed(ActionEvent e)
 
             str1=s1.toString();
             str2="Median Filtering";
+
+            System.out.println("The filtertype is ...."+str2);
+            DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+
+
+            s1.delete(0,60);
+            s2.delete(0,60);
+
+
+         }
+      
+      else if (e.getActionCommand().equals("Image Negative")){
+          temp1=entry1.getText();
+            temp2=entry2.getText();
+
+            s1.append(temp1);
+            s2.append(temp2);
+
+            str1=s1.toString();
+            str2="Image Negative";
 
             System.out.println("The filtertype is ...."+str2);
             DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
