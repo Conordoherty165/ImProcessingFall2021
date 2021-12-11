@@ -444,11 +444,25 @@ SplitImage MedianFiltering(SplitImage sIm){
 			int[] bottom=getPixelValue(twoDIm, i-1,k);
 			int[] bottomLeft=getPixelValue(twoDIm, i-1, k-1);
 			
+			int[] red = new int[] {left[0],topLeft[0],topMiddle[0],right[0],bottomRight[0],bottom[0],bottomLeft[0],current[0] };
+			int[] green = new int[] {left[1],topLeft[1],topMiddle[1],right[1],bottomRight[1],bottom[1],bottomLeft[1],current[1] };
+			int[] blue = new int[] {left[2],topLeft[2],topMiddle[2],right[2],bottomRight[2],bottom[2],bottomLeft[2],current[2] };
+			
+			int redMedian = Median(red);
+			int blueMedian = Median(blue);
+			int greenMedian = Median(green);
+			
+			twoDIm.red[i][k] = redMedian;
+			twoDIm.green[i][k] = greenMedian;
+			twoDIm.blue[i][k] = blueMedian;
+			
+			
+			
 		}
 	}
 		
 
-	return ssIm;
+	return twoDIm.from2To1D(twoDIm);
 
 }
 
