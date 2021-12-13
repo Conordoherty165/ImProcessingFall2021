@@ -257,10 +257,26 @@ SplitImage Add50(SplitImage sIm)
 	System.out.println("We are in the Add50 method just written");
 	for(j=0;j<size;j++)
 	{
-		ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
-		ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
-		ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
-
+		//ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
+		//ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
+		//ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) + 50;
+		
+		
+		ssIm.red[j]=(sIm.red[j]+ 50);
+		ssIm.green[j]=(sIm.green[j]+ 50);
+		ssIm.blue[j]=(sIm.blue[j] + 50);
+		
+		
+		//if value is over 255 set to 255
+				if(ssIm.red[j] > 255) {
+					ssIm.red[j]=255;
+				}
+				if(ssIm.blue[j] > 255) {
+					ssIm.blue[j]=255;
+				}
+				if(ssIm.green[j] > 255) {
+					ssIm.green[j]=255;
+				}
 		//**************
 		//median3x3array();
 		//***************
@@ -278,15 +294,19 @@ SplitImage Poster(SplitImage sIm){
 	int j=0;
 	int size;//overall size in pixels of image
 	size=height*width;
-
+	
 	SplitImage ssIm = new SplitImage(height,width); // blank canvas
-	System.out.println("We are in the toBW method just written");
+	System.out.println("We are in the Poster method just written");
 	for(j=0;j<size;j++)
 	{
-		ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
+		int average = ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
 		ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
-
 		ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
+		int div8 = average/8;
+		ssIm.red[j]=div8*32+16;
+		ssIm.green[j]=div8*32+16;
+		ssIm.blue[j]=div8*32+16;
+		
 
 		//**************
 		//median3x3array();
@@ -294,7 +314,7 @@ SplitImage Poster(SplitImage sIm){
 
 
 	}// end for j
-	return sssIm;
+	return ssIm;
 
 }
 
@@ -468,15 +488,66 @@ SplitImage MedianFiltering(SplitImage sIm){
 
 
 
+
+SplitImage ThreeByThreeSmoothing(SplitImage sIm){
+	int height,width;
+	height=sIm.height;
+	width=sIm.width;
+	TwoDSplitImage twoDIm = sIm.from1To2D(); //2D image
+	System.out.println("We are in the ThreeByThreeSmoothing method just written");
+	for (int i = 1; i < height-1; i++) { //1 to skip edges
+		for (int k = 1; k < width-1; k++) { //1 to skip edges
+			int[] current=getPixelValue(twoDIm,i,k);
+			//get all 8 neighbouring pixels
+			//3 values change ThreeByThreeSmoothing 
+			//once you have median set current pixel (twoDIm[i][k] set to median)
+			//finish loop and then convert back to a splitImage;
+			// and then return
+			int[] left=getPixelValue(twoDIm,i,k-1);
+			int[] topLeft=getPixelValue(twoDIm,i+1,k-1);
+			int[] topMiddle=getPixelValue(twoDIm,i+1,k);
+			int[] right=getPixelValue(twoDIm,i,k+1);
+			int[] bottomRight=getPixelValue(twoDIm, i-1, k+1);
+			int[] bottom=getPixelValue(twoDIm, i-1,k);
+			int[] bottomLeft=getPixelValue(twoDIm, i-1, k-1);
+			int[] red = new int[] {left[0],topLeft[0],topMiddle[0],right[0],bottomRight[0],bottom[0],bottomLeft[0],current[0] };
+			int[] green = new int[] {left[1],topLeft[1],topMiddle[1],right[1],bottomRight[1],bottom[1],bottomLeft[1],current[1] };
+			int[] blue = new int[] {left[2],topLeft[2],topMiddle[2],right[2],bottomRight[2],bottom[2],bottomLeft[2],current[2] };
+			int redSmooth = Smoothing(red);
+			int blueSmooth = Smoothing(blue);
+			int greenSmooth = Smoothing(green);
+			twoDIm.red[i][k] = redSmooth;
+			twoDIm.blue[i][k] = blueSmooth;
+			twoDIm.green[i][k] = greenSmooth;
+		}
+	}
+		
+
+	return twoDIm.from2To1D(twoDIm);
+
+}
+
 int[] getPixelValue(TwoDSplitImage image, int height,int width) {
 	int red=image.red[height][width];
 	int green=image.green[height][width];
 	int blue=image.blue[height][width];
 	
-	return new int[] {red,green,blue};
-	
-	
+	return new int[] {red,green,blue};	
 }
+
+
+
+int Smoothing (int[] numbers) {
+	int total = 0;
+	
+	for(int i=0; i<numbers.length; i++){
+		total = total + numbers[i];
+    }
+	total = total / numbers.length;
+	
+	return total;
+}
+
 
 int Median (int[] numbers) {
 	Arrays.sort(numbers);
@@ -515,6 +586,8 @@ SplitImage ImageNegative(SplitImage sIm){
 	return ssIm;
 
 }
+
+
 
 
 

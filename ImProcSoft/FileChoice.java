@@ -1,3 +1,9 @@
+/*
+ *Author: Conor Doherty 
+ * Date: 12/10/2021
+ * Name: Image Processing
+ * Lecturer: Mark Leeny
+ */
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -25,6 +31,7 @@ public class FileChoice extends Frame implements ActionListener
    private Button btnClick12;
    private Button btnClick13;
    private Button btnClick14;
+   private Button btnClick15;
 
 
 
@@ -132,8 +139,11 @@ public class FileChoice extends Frame implements ActionListener
       btnClick14 = new Button("Image Negative");
       add(btnClick14);
       btnClick14.addActionListener(this);
+      
+      btnClick15 = new Button("Three By Three Smoothing");
+      add(btnClick15);
+      btnClick15.addActionListener(this);
       show();
-
 
 
    }
@@ -341,7 +351,7 @@ public void actionPerformed(ActionEvent e)
             s2.append(temp2);
 
             str1=s1.toString();
-            str2="Poster";
+            str2="SquareRoot";
 
             System.out.println("The filtertype is ...."+str2);
             DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
@@ -430,6 +440,32 @@ public void actionPerformed(ActionEvent e)
 
 
          }
+
+      
+      
+      else if (e.getActionCommand().equals("Three By Three Smoothing")){
+          temp1=entry1.getText();
+            temp2=entry2.getText();
+
+            s1.append(temp1);
+            s2.append(temp2);
+
+            str1=s1.toString();
+            str2="Three By Three Smoothing";
+
+            System.out.println("The filtertype is ...."+str2);
+            DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+
+
+            s1.delete(0,60);
+            s2.delete(0,60);
+
+
+         }
+      
+      else {
+    	  System.out.println("Unknown Option" + e.getActionCommand());
+      }
 
 
    }

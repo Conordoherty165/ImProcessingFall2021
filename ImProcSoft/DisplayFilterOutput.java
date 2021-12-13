@@ -96,10 +96,16 @@ ssIm=sssIm;
 
  }
 
- else if (filtertype.compareTo("Poster")==0)
+ else if (filtertype.equals("Poster"))
  {
-  ssIm = oF.toBW(sIm);
+  ssIm = oF.Poster(sIm);
   System.out.println("Just called Poster");
+ }
+ 
+ else if (filtertype.compareTo("Add 50")==0)
+ {
+  ssIm = oF.Add50(sIm);
+  System.out.println("Just called Add50");
  }
 
  else if (filtertype.compareTo("SquareRoot")==0)
@@ -130,6 +136,12 @@ ssIm=sssIm;
  {
   ssIm = oF.ImageNegative(sIm);
   System.out.println("Just called ImageNegative");
+ }
+ 
+ else if (filtertype.compareTo("Three By Three Smoothing")==0)
+ {
+  ssIm = oF.ThreeByThreeSmoothing(sIm);
+  System.out.println("Just called Three By ThreeSmoothing");
  }
  
 
