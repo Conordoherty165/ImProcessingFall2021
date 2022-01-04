@@ -144,6 +144,12 @@ ssIm=sssIm;
   System.out.println("Just called Three By ThreeSmoothing");
  }
  
+ else if (filtertype.equals("Log"))
+ {
+  ssIm = oF.Log(sIm);
+  System.out.println("Just called Log");
+ }
+ 
 
  /*
  else if (filtertype.compareTo("MAGNIFY50")==0)

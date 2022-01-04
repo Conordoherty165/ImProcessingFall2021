@@ -3,6 +3,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
+import java.lang.Math.*;
 
 
 
@@ -299,13 +300,14 @@ SplitImage Poster(SplitImage sIm){
 	System.out.println("We are in the Poster method just written");
 	for(j=0;j<size;j++)
 	{
-		int average = ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
-		ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
-		ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3;
-		int div8 = average/8;
-		ssIm.red[j]=div8*32+16;
-		ssIm.green[j]=div8*32+16;
-		ssIm.blue[j]=div8*32+16;
+		int average = (int)Math.round( (sIm.red[j]+sIm.green[j]+sIm.blue[j]) / 3);
+
+		int div32 = average/32;
+		ssIm.red[j]=div32*32+16;
+		ssIm.green[j]=div32*32+16;
+		ssIm.blue[j]=div32*32+16;
+      
+      
 		
 
 		//**************
@@ -327,14 +329,15 @@ SplitImage SquareRoot(SplitImage sIm){
 	int j=0;
 	int size;//overall size in pixels of image
 	size=height*width;
-
+   //Math redSqurare = math.sqrt(sIm.red[j]*16);
+   
 	SplitImage ssIm = new SplitImage(height,width); // blank canvas
 	System.out.println("We are in the SquareRoot method just written");
 	for(j=0;j<size;j++)
 	{
-		ssIm.red[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) ^ 16;
-		ssIm.green[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) ^ 16;
-		ssIm.blue[j]=(sIm.red[j]+sIm.green[j]+sIm.blue[j]) ^ 16;
+		ssIm.red[j]=sIm.red[j]^ 16;
+		ssIm.green[j]=sIm.green[j]^ 16;
+		ssIm.blue[j]=sIm.blue[j] ^ 16;
 
 		//**************
 		//median3x3array();
@@ -347,45 +350,29 @@ SplitImage SquareRoot(SplitImage sIm){
 }
 
 SplitImage Blend(SplitImage sIm){
-	int height,width;
-	
-	int j=0;
-	SplitImage coolPhoto =  ImageDecomp.prism("C:\\Users\\jedib\\Desktop\\george.jpg");
-	if(coolPhoto.width > sIm.width) {
-		width=coolPhoto.width;
-	}
-	else {
-		width=sIm.width;
-	}
-	
-	if(coolPhoto.height > sIm.height) {
-		height=coolPhoto.height;
-	}
-	else {
-		height=sIm.height;
-	}
-	double randomBlend = ThreadLocalRandom.current().nextDouble(0, 1);
-	SplitImage ssIm = new SplitImage(height,width); // blank canvas
-	System.out.println("We are in the Blend method just written");
-	for(j=0;j<sIm.width*sIm.height;j++)
-	{
-		ssIm.red[j]=(int) ((1-randomBlend) * (sIm.red[j]+sIm.green[j]+sIm.blue[j]));
-		ssIm.green[j]=(int) ((1-randomBlend) * (sIm.red[j]+sIm.green[j]+sIm.blue[j]));
-		ssIm.blue[j]=(int) ((1-randomBlend) * (sIm.red[j]+sIm.green[j]+sIm.blue[j]));
+int height1,width1, height2, width2;
+ImageDecomp iD = new ImageDecomp();
+SplitImage sIm2 = ImageDecomp.prism("C:\\Users\\jedib\\Desktop\\joe.jpg");
+height1 =sIm.height;
+width1 =sIm.width;
+height2 =sIm.height;
+width2 =sIm.width;
+int size1 = height1 * width1;
+int size2 = height2 * width2;
+int uSize;
+double alpha = 0.5;
+SplitImage ssIm = new SplitImage(height1,width2);
+if(size1<size2)
+uSize = size1;
+else
+uSize = size1;
 
-		//**************
-		//median3x3array();
-		//***************
-
-
-	}// end for j
-
-	for(int i=0; i<coolPhoto.height * coolPhoto.width; i++) {
-		ssIm.red[i]+=(int) (randomBlend * (coolPhoto.red[i]+coolPhoto.green[i]+coolPhoto.blue[i]));
-		ssIm.green[i]+=(int) (randomBlend * (coolPhoto.red[i]+coolPhoto.green[i]+coolPhoto.blue[i]));
-		ssIm.blue[i]+=(int) (randomBlend * (coolPhoto.red[i]+coolPhoto.green[i]+coolPhoto.blue[i]));
-	}
-	return ssIm;
+for(int i=0; i<uSize; i++) {
+ssIm.red[i]=(int) Math.round((1-alpha)* sIm.red[i]+alpha * sIm2.red[i]);
+ssIm.green[i]=(int) Math.round((1-alpha)* sIm.red[i]+alpha * sIm2.green[i]);
+ssIm.blue[i]=(int) Math.round((1-alpha)* sIm.red[i]+alpha * sIm2.blue[i]);
+}
+return ssIm;
 
 }
 
@@ -535,6 +522,42 @@ int[] getPixelValue(TwoDSplitImage image, int height,int width) {
 	return new int[] {red,green,blue};	
 }
 
+SplitImage linearContrast(SplitImage sIm){
+int height,width;
+height=sIm.height;
+width=sIm.width;
+int size = height*width;
+double m = 1.2;
+double c = 60;
+
+SplitImage ssIm = new SplitImage(height,width);
+
+System.out.println("Linear Contrast Enhancement Method");
+for(int i=0; i<size; i++)
+{
+   ssIm.red[i] = (int)(sIm.red[i] * m + c);
+   ssIm.green[i] = (int)(sIm.green[i] * m + c);
+   ssIm.blue[i] = (int)(sIm.blue[i] * m + c);
+   
+   if(ssIm.red[i] > 255)
+   {
+      ssIm.red[i] = 255;
+   }
+   
+   if(ssIm.green[i] > 255)
+   {
+      ssIm.green[i] = 255;
+   }
+   
+   if(ssIm.blue[i] > 255)
+   {
+      ssIm.blue[i] = 255;
+   }
+   
+}  //end for i
+
+return ssIm;
+}///// end of lineR
 
 
 int Smoothing (int[] numbers) {
@@ -587,9 +610,23 @@ SplitImage ImageNegative(SplitImage sIm){
 
 }
 
-
-
-
+SplitImage Log(SplitImage sIm){
+int height,width;
+	height=sIm.height;
+	width=sIm.width;
+   int size;//overall size in pixels of image
+	size=height*width;
+   
+   SplitImage ssIm = new SplitImage(height,width);
+   
+   for(int i=0; i<size; i++){
+   ssIm.red[i] = (int)Math.round(Math.log(sIm.red[i] ) *37);
+   ssIm.blue[i] = (int)Math.round(Math.log(sIm.blue[i] ) *37);
+   ssIm.green[i] = (int)Math.round(Math.log(sIm.green[i] ) *37);
+   
+   }
+   return ssIm;
+ }
 
 SplitImage reduce(SplitImage input)
 {int oldwidth=input.width;
@@ -667,6 +704,7 @@ for(i=1;i<h-1;i++)
 }
 
 
+////////linearContrast////
 
 
 /*

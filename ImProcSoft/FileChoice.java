@@ -13,6 +13,7 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.lang.Math.*;
 import java.awt.event.WindowEvent;
 
 public class FileChoice extends Frame implements ActionListener
@@ -32,6 +33,8 @@ public class FileChoice extends Frame implements ActionListener
    private Button btnClick13;
    private Button btnClick14;
    private Button btnClick15;
+   private Button btnClick16;
+   private Button btnClick17;
 
 
 
@@ -61,7 +64,7 @@ public class FileChoice extends Frame implements ActionListener
       setSize(500,600);
 
       entry1=new TextField(30);
-      entry1.setText("C:\\Users\\jedib\\Desktop\\brink.PNG");
+      entry1.setText("C:\\Users\\jedib\\Desktop\\bag.jpg");
       add(entry1);
       prompt1 = new Label("  Enter location of GIF/JPG File  ");
       add(prompt1);
@@ -143,6 +146,15 @@ public class FileChoice extends Frame implements ActionListener
       btnClick15 = new Button("Three By Three Smoothing");
       add(btnClick15);
       btnClick15.addActionListener(this);
+      
+      btnClick16 = new Button("Log");
+      add(btnClick16);
+      btnClick16.addActionListener(this);
+      
+      
+      btnClick17 = new Button("linearContrast");
+      add(btnClick17);
+      btnClick17.addActionListener(this);
       show();
 
 
@@ -452,6 +464,47 @@ public void actionPerformed(ActionEvent e)
 
             str1=s1.toString();
             str2="Three By Three Smoothing";
+
+            System.out.println("The filtertype is ...."+str2);
+            DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+
+
+            s1.delete(0,60);
+            s2.delete(0,60);
+
+
+         }
+         else if (e.getActionCommand().equals("linearContrast")){
+          temp1=entry1.getText();
+            temp2=entry2.getText();
+
+            s1.append(temp1);
+            s2.append(temp2);
+
+            str1=s1.toString();
+            str2="linearContrast";
+
+            System.out.println("The filtertype is ...."+str2);
+            DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
+
+
+            s1.delete(0,60);
+            s2.delete(0,60);
+
+
+         }
+         
+      
+         
+         else if (e.getActionCommand().equals("Log")){
+          temp1=entry1.getText();
+            temp2=entry2.getText();
+
+            s1.append(temp1);
+            s2.append(temp2);
+
+            str1=s1.toString();
+            str2="Log";
 
             System.out.println("The filtertype is ...."+str2);
             DisplayFilterOutput dFO = new DisplayFilterOutput(str1,str2);
